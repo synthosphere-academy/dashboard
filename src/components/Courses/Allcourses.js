@@ -23,7 +23,7 @@ const Allcourses = () => {
         "Portfolio Management Guide",
         "One Month Spot Call",
         "Basic Fundamental Analysis, Technical Analysis",
-        "Online 17 Education Videos",
+        "Online Education Videos",
       ],
     },
     {
@@ -39,7 +39,7 @@ const Allcourses = () => {
         "Advance Portfolio Management",
         "Spot & Future Trading Call (2 Months)",
         "Advance Fundamental Analysis, Technical Analysis",
-        "Online 22 Videos",
+        "Online Education Videos",
         "Regular PNL Strategy",
         "Basic Liquidation Strategy",
       ],
@@ -63,7 +63,7 @@ const Allcourses = () => {
 
         "Advance Fundamental Analysis, Technical Analysis",
 
-        "Online 25 Videos",
+        "Online Education Videos",
 
         "Risk Management Strategy",
         "Regular PNL Strategy",
@@ -101,7 +101,7 @@ const Allcourses = () => {
 
         "Advance Fundamental Analysis, Technical Analysis",
 
-        "Online 27 Videos",
+        "Online Education Videos",
 
         "Risk Management Strategy",
 
@@ -138,7 +138,7 @@ const Allcourses = () => {
 "Advance Portfolio Management",
 "Spot & Future Trading Call (12 Months)",
 "Advance Fundamental Analysis, Technical Analysis",
-"Online 30 Videos",
+"Online Education Videos",
 "Risk Management Strategy",
 "Regular PNL Strategy",
 "Basic Liquidation Strategy",
