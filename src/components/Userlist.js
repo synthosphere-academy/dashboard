@@ -62,6 +62,8 @@ const Userlist = () => {
       return (
         user.userId?.toLowerCase().includes(queryLower) ||
         user.name?.toLowerCase().includes(queryLower) ||
+        user.email?.toLowerCase().includes(queryLower) ||
+        user.phone?.toLowerCase().includes(queryLower) ||
         courseName.includes(queryLower) ||
         packageName.includes(queryLower) ||
         noCourseText.includes(queryLower) ||
