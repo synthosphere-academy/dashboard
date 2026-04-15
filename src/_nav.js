@@ -101,6 +101,16 @@ const _nav = [
     to: '/rankusers',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+  {
+    component: CNavTitle,
+    name: 'Scholarship',
+  },
+  {
+    component: CNavItem,
+    name: 'Scholarship Achievers',
+    to: '/scholarship',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  }
 
   
   // {

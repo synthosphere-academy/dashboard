@@ -32,6 +32,7 @@ const payout = React.lazy(() => import('./components/Payout/payout'))
 const Pendinguser = React.lazy(() => import('./components/User/Pendinguser'))
 const Edituser = React.lazy(() => import('./components/User/Edituser'))
 const Rankusers = React.lazy(()=> import("./components/Rankusers"))
+const Scholarship = React.lazy(() => import('./components/Scholarship/Scholarship'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -55,6 +56,7 @@ const routes = [
   { path: '/onlineorder', name: 'onlineorder', element: OnlineOrder },
   { path: '/order', name: 'order', element: Order },
   { path: '/invoice', name: 'invoice', element: Invoice },
+  { path: '/scholarship', name: 'Scholarship', element: Scholarship },
   { path: '/invoicelist/:id', name: 'invoicelist', element: Invoicelist },
   { path: '/adduser', name: 'All User',element: Adduser },
   { path: '/Offlineuser', name: 'Offlineuser', element: Offlineuser },
