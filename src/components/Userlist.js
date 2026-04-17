@@ -194,11 +194,14 @@ const Userlist = () => {
                     {user.courseDetails?.packageName || (
                       <span className="text-muted">No Enrolled Package</span>
                     )}
-                    <br />  {user.courseDetails?.purchaseHistory?.length > 0
-    ? user.courseDetails.purchaseHistory[
-        user.courseDetails.purchaseHistory.length - 1
-      ].amount
-    : "0000"}
+                    <br />  {{
+    "Learner Course": 1770,
+    "Master Course": 3540,
+    "Pro Master Course": 7080,
+    "Teacher Course": 11800,
+    "Pro Teacher Course": 59000,
+    "Monthly Subscription": 944,
+  }[user.courseDetails?.packageName] || "0000"}
                   </CTableDataCell>
                   <CTableHeaderCell>{user.status}</CTableHeaderCell>
                   <CTableHeaderCell HeaderCell className="text-center">
