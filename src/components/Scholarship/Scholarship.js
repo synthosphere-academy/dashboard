@@ -11,51 +11,151 @@ function Scholarship() {
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.get(`${ROOT_URL}/api/users/all`);
 
-      const allUsers = response.data.data;
+const fetchUsers = async () => {
+  try {
+    const response = await axios.get(`${ROOT_URL}/api/users/all`);
 
-      // Create map
-      const userMap = {};
-      allUsers.forEach(u => {
-        userMap[u.userId] = u;
-      });
+    const allUsers = response.data.data;
 
-      const result = allUsers.map(user => {
+    // Create map
+    const userMap = {};
+    allUsers.forEach(u => {
+      userMap[u.userId] = u;
+    });
 
-        const referredUsers = user.referredIds
-          ?.map(id => userMap[id])
-          .filter(Boolean) || [];
+    // ✅ Same cutoff
+    const cutoffDate = new Date("2026-04-30T23:59:59.999Z");
 
-        const activeCount = referredUsers.filter(u => {
-          const name = u.courseDetails?.packageName?.toLowerCase() || "";
-          return name.includes("master") || name.includes("teacher");
-        }).length;
+    // ✅ Safe parser
+    const parseCustomDate = (dateStr) => {
+      if (!dateStr) return null;
 
-        let scholarship = "None";
+      try {
+        const [datePart, timePart] = dateStr.split(",");
+        const [day, month, year] = datePart.trim().split("/");
 
-        if (activeCount >= 5) scholarship = "Diamond";
-        else if (activeCount >= 4) scholarship = "Platinum";
-        else if (activeCount >= 3) scholarship = "Gold";
-        else if (activeCount >= 2) scholarship = "Silver";
-        else if (activeCount >= 1) scholarship = "Bronze";
+        const [hour = 0, minute = 0, second = 0] = (timePart || "")
+          .replace(/(am|pm)/i, "")
+          .trim()
+          .split(":")
+          .map(Number);
 
-        return {
-          name: user.name,
-          userId: user.userId,
-          scholarship,
-          activeCount
-        };
-      });
+        return new Date(year, month - 1, day, hour, minute, second);
+      } catch {
+        return null;
+      }
+    };
 
-      setScholarshipUsers(result.filter(u => u.scholarship !== "None"));
+    const result = allUsers.map(user => {
 
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
+      const referredUsers = user.referredIds
+        ?.map(id => userMap[id])
+        .filter(Boolean) || [];
+
+      const activeCount = referredUsers.filter(u => {
+        const courseDetails = u.courseDetails;
+
+        if (!courseDetails) return false;
+
+        const packageName = courseDetails.packageName?.toLowerCase() || "";
+
+        // ✅ Master / Teacher
+        const isMasterOrTeacher =
+          packageName.includes("master") ||
+          packageName.includes("teacher");
+
+        // ✅ Monthly Subscription (same logic)
+        const purchaseHistory = courseDetails.purchaseHistory || [];
+        const firstPurchase = purchaseHistory[0];
+        const secondPurchase = purchaseHistory[1];
+
+        let isValidSubscription = false;
+
+        if (
+          firstPurchase &&
+          secondPurchase &&
+          firstPurchase.packageName === "Learner Course" &&
+          secondPurchase.packageName === "Monthly Subscription"
+        ) {
+          const firstDate = parseCustomDate(firstPurchase.date);
+
+          if (firstDate && firstDate <= cutoffDate) {
+            isValidSubscription = true;
+          }
+        }
+
+        return isMasterOrTeacher || isValidSubscription;
+      }).length;
+
+      let scholarship = "None";
+
+      if (activeCount >= 50) scholarship = "Diamond";
+      else if (activeCount >= 40) scholarship = "Platinum";
+      else if (activeCount >= 30) scholarship = "Gold";
+      else if (activeCount >= 20) scholarship = "Silver";
+      else if (activeCount >= 10) scholarship = "Bronze";
+
+      return {
+        name: user.name,
+        userId: user.userId,
+        scholarship,
+        activeCount
+      };
+    });
+
+    setScholarshipUsers(result.filter(u => u.scholarship !== "None"));
+
+  } catch (error) {
+    console.error("Error fetching users:", error);
+  }
+};
+
+  // const fetchUsers = async () => {
+  //   try {
+  //     const response = await axios.get(`${ROOT_URL}/api/users/all`);
+
+  //     const allUsers = response.data.data;
+
+  //     // Create map
+  //     const userMap = {};
+  //     allUsers.forEach(u => {
+  //       userMap[u.userId] = u;
+  //     });
+
+  //     const result = allUsers.map(user => {
+
+  //       const referredUsers = user.referredIds
+  //         ?.map(id => userMap[id])
+  //         .filter(Boolean) || [];
+
+  //       const activeCount = referredUsers.filter(u => {
+  //         const name = u.courseDetails?.packageName?.toLowerCase() || "";
+  //         return name.includes("master") || name.includes("teacher");
+  //       }).length;
+
+  //       let scholarship = "None";
+
+  //       if (activeCount >= 5) scholarship = "Diamond";
+  //       else if (activeCount >= 4) scholarship = "Platinum";
+  //       else if (activeCount >= 3) scholarship = "Gold";
+  //       else if (activeCount >= 2) scholarship = "Silver";
+  //       else if (activeCount >= 1) scholarship = "Bronze";
+
+  //       return {
+  //         name: user.name,
+  //         userId: user.userId,
+  //         scholarship,
+  //         activeCount
+  //       };
+  //     });
+
+  //     setScholarshipUsers(result.filter(u => u.scholarship !== "None"));
+
+  //   } catch (error) {
+  //     console.error("Error fetching users:", error);
+  //   }
+  // };
 
   // ✅ Filter Logic
   const filteredUsers =
