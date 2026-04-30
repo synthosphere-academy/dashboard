@@ -68,15 +68,16 @@ const fetchUsers = async () => {
         // ✅ Monthly Subscription (same logic)
         const purchaseHistory = courseDetails.purchaseHistory || [];
         const firstPurchase = purchaseHistory[0];
-        const secondPurchase = purchaseHistory[1];
+        const subscriptionPurchase = purchaseHistory
+          .slice(1)
+          .find((p) => p.packageName === "Monthly Subscription");
 
         let isValidSubscription = false;
 
         if (
           firstPurchase &&
-          secondPurchase &&
-          firstPurchase.packageName === "Learner Course" &&
-          secondPurchase.packageName === "Monthly Subscription"
+          subscriptionPurchase &&
+          firstPurchase.packageName === "Learner Course"
         ) {
           const firstDate = parseCustomDate(firstPurchase.date);
 
