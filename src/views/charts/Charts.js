@@ -30,7 +30,7 @@ const Charts = () => {
   useEffect(() => {
     fetchDashboardStats();
   }, []);
-  const april = stats.currentMonthAmount || 0;
+  const may = stats.currentMonthAmount || 0;
   // const december = 500000;
   return (
     <CRow>
@@ -40,13 +40,13 @@ const Charts = () => {
           <CCardBody>
             <CChartBar
               data={{
-                labels: [ 'November', 'December', 'January', 'February', 'March','April'],
+                labels: [ 'November', 'December', 'January', 'February', 'March','April','May'],
                 datasets: [
                   {
                     label: 'Amount',
                     
                     backgroundColor: '#f87979',
-                    data: [ 32804,78470, 56994, 62894,308098, april],
+                    data: [ 32804,78470, 56994, 62894,308098, 287448, may],
                   },
                 ],
               }}
