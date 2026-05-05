@@ -23,6 +23,7 @@ function Payout() {
   // 🔹 Filters
   const [amountFilter, setAmountFilter] = useState('200') // all | 200 (default 200)
   const [selectedDate, setSelectedDate] = useState('')
+  const [searchName, setSearchName] = useState('')
 
   // ================= FETCH PAYOUTS =================
   const fetchPayouts = async () => {
@@ -70,7 +71,11 @@ function Payout() {
 
     // ✅ Date filter (only if selected)
     if (selectedDate && p.date !== selectedDate) return false
-
+     if (
+    searchName &&
+    !p.name.toLowerCase().includes(searchName.toLowerCase())
+  )
+    return false
     return true
   })
 
@@ -175,6 +180,17 @@ function Payout() {
             ))}
           </select>
         </div>
+        {/* Username Search */}
+<div className="col-md-3">
+  <label className="fw-bold">Search Username</label>
+  <input
+    type="text"
+    className="form-control"
+    placeholder="Enter username..."
+    value={searchName}
+    onChange={(e) => setSearchName(e.target.value)}
+  />
+</div>
 
         {/* Total */}
         <div className="col-md-3 d-flex align-items-end">
@@ -183,6 +199,7 @@ function Payout() {
           </div>
         </div>
       </div>
+      
 
       {/* ================= TABLE ================= */}
       {loading ? (
