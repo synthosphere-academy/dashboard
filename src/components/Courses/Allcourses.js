@@ -170,6 +170,36 @@ const Allcourses = () => {
         "Trade Call Signals(1 Month)"
       ],
     },
+     {
+      name: "Premium Monthly Subscription",
+      price: "1880",
+      points: "1600",
+      paymentUrl: "https://rzp.io/rzp/yx0C4LX",
+      gold: true,
+      features: [
+        "Monthly  Special Trading Guidance",
+        "Monthly Special Classes",
+        "Special Expert Advice",
+        "four Coin Suggestion",
+        "One Special Call",
+        "Trade Call Signals(1 Month)",
+      ],
+    },
+    {
+      name: "Super Premium Monthly Subscription",
+      price: "2950",
+      points: "2500",
+      paymentUrl: "https://rzp.io/rzp/yx0C4LX",
+      gold: true,
+      features: [
+        "Monthly  Special Trading Guidance",
+        "Monthly Special Classes",
+        "Special Expert Advice",
+        "Six Coin Suggestion",
+        "One Special Call",
+        "Trade Call Signals(1 Month)",
+      ],
+    },
   ];
 
   return (

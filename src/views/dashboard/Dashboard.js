@@ -67,53 +67,6 @@ const Dashboard = () => {
     fetchUserPurchases()
   }, [])
 
-  // console.log(ROOT_URL)
-
-  //   useEffect(() => {
-  //     axios.get(ROOT_URL+'/api/v1/get_course')
-
-  //     .then((productdata) =>{
-  //       setproductdata(productdata.data.data);
-  //       console.log(productdata.data.data);
-  //     } )
-  //     .catch((err) =>{
-  //        console.log(err)
-
-  //      }
-  //     )
-
-  // }, []);
-
-  // const handleDelete = async (id) => {
-  //   try {
-  //     // const id = document.getElementById('courseid').innerHTML;
-  //     // console.log(id);
-  //     await axios.delete(ROOT_URL+`/api/v1/deletecourse/${id}`);
-  //     swal("Deleted!", "Course has been deleted.", "success");
-  //     window.location.reload();
-  //   } catch (error) {
-  //     swal("Error!", "Failed to delete the course.", "error");
-  //     console.error('Error deleting course', error);
-  //   }
-  // };
-  // const confirmDelete = (productid) => {
-  //   console.log("course ID to be deleted:", productid);
-
-  //   swal({
-  //     title: "Are you sure?",
-  //     text: "Once deleted, you will not be able to recover this course!",
-  //     icon: "warning",
-  //     buttons: true,
-  //     dangerMode: true,
-  //   }).then((willDelete) => {
-  //     if (willDelete) {
-  //       handleDelete(productid);
-  //     } else {
-  //       swal("Your course is safe!");
-  //     }
-  //   });
-  // };
-
   return (
     <>
       <WidgetsDropdown className="mb-4" />
@@ -200,6 +153,24 @@ const Dashboard = () => {
                 {courseCount['Monthly Subscription'] || 0}
               </CTableDataCell>
             </CTableRow>
+            {/* <CTableRow>
+              <CTableDataCell className="text-center">Premium Monthly Subscription</CTableDataCell>
+              <CTableDataCell className="text-center">-</CTableDataCell>
+              <CTableDataCell className="text-center">-</CTableDataCell>
+              <CTableDataCell className="text-center">1880/-</CTableDataCell>
+              <CTableDataCell className="text-center">
+                {courseCount['Premium Monthly Subscription'] || 0}
+              </CTableDataCell>
+            </CTableRow> */}
+            {/* <CTableRow>
+              <CTableDataCell className="text-center">Super Premium Monthly Subscription</CTableDataCell>
+              <CTableDataCell className="text-center">-</CTableDataCell>
+              <CTableDataCell className="text-center">-</CTableDataCell>
+              <CTableDataCell className="text-center">2950/-</CTableDataCell>
+              <CTableDataCell className="text-center">
+                {courseCount['Super Premium Monthly Subscription'] || 0}
+              </CTableDataCell>
+            </CTableRow> */}
             {/* {
               productdata.map((product) => {
                 return <CTableRow active key={product._id} >
