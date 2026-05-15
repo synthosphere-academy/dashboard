@@ -153,24 +153,24 @@ const Dashboard = () => {
                 {courseCount['Monthly Subscription'] || 0}
               </CTableDataCell>
             </CTableRow>
-            {/* <CTableRow>
+            <CTableRow>
               <CTableDataCell className="text-center">Premium Monthly Subscription</CTableDataCell>
-              <CTableDataCell className="text-center">-</CTableDataCell>
-              <CTableDataCell className="text-center">-</CTableDataCell>
+              <CTableDataCell className="text-center">280</CTableDataCell>
+              <CTableDataCell className="text-center">1600</CTableDataCell>
               <CTableDataCell className="text-center">1880/-</CTableDataCell>
               <CTableDataCell className="text-center">
                 {courseCount['Premium Monthly Subscription'] || 0}
               </CTableDataCell>
-            </CTableRow> */}
-            {/* <CTableRow>
+            </CTableRow>
+            <CTableRow>
               <CTableDataCell className="text-center">Super Premium Monthly Subscription</CTableDataCell>
-              <CTableDataCell className="text-center">-</CTableDataCell>
-              <CTableDataCell className="text-center">-</CTableDataCell>
+              <CTableDataCell className="text-center">450</CTableDataCell>
+              <CTableDataCell className="text-center">2500</CTableDataCell>
               <CTableDataCell className="text-center">2950/-</CTableDataCell>
               <CTableDataCell className="text-center">
                 {courseCount['Super Premium Monthly Subscription'] || 0}
               </CTableDataCell>
-            </CTableRow> */}
+            </CTableRow>
             {/* {
               productdata.map((product) => {
                 return <CTableRow active key={product._id} >
