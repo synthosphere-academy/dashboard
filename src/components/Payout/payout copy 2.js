@@ -60,13 +60,7 @@ function Payout() {
   }, [])
 
   // ================= UNIQUE PAYOUT DATES =================
-  // 
-  // const payoutDates = [...new Set(payouts.map((p) => p.date))]
-  const payoutDates = [
-  ...new Set(
-    payouts.map((p) => p.date.split(",")[0].trim())
-  ),
-]
+  const payoutDates = [...new Set(payouts.map((p) => p.date))]
 
   // ================= FILTERED PAYOUTS =================
   const filteredPayouts = payouts.filter((p) => {
@@ -76,10 +70,7 @@ function Payout() {
     if (amountFilter === '200' && netAmount < 200) return false
 
     // ✅ Date filter (only if selected)
-    const onlyDate = p.date.split(",")[0].trim()
-
-if (selectedDate && onlyDate !== selectedDate) return false
-    // if (selectedDate && p.date !== selectedDate) return false
+    if (selectedDate && p.date !== selectedDate) return false
      if (
     searchName &&
     !p.name.toLowerCase().includes(searchName.toLowerCase())

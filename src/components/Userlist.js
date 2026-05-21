@@ -22,6 +22,7 @@ const Userlist = () => {
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [batchFilter, setBatchFilter] = useState('')
   const usersPerPage = 50
 
   // Fetch all users
@@ -43,7 +44,29 @@ const Userlist = () => {
   useEffect(() => {
     fetchUsers()
   }, [])
+  const batches = {
+    6: {
+      label: 'Batch 6',
+      start: '26/4/2026',
+      end: '19/5/2026',
+    },
 
+    7: {
+      label: 'Batch 7',
+      start: '20/5/2026',
+      end: '31/5/2026',
+    },
+    8: {
+      label: 'Batch 8',
+      start: '1/6/2026',
+      end: '15/6/2026',
+    },
+    9: {
+      label: 'Batch 9',
+      start: '16/6/2026',
+      end: '30/6/2026',
+    },
+  }
   // Filter users by search
   const filteredUsers = users
     // latest first
@@ -52,14 +75,18 @@ const Userlist = () => {
       const queryLower = query.toLowerCase()
 
       const hasCourse = !!user.courseDetails
+
       const courseName = user.courseDetails?.courseName?.toLowerCase() || ''
+
       const packageName = user.courseDetails?.packageName?.toLowerCase() || ''
 
-      // 👇 virtual searchable labels
       const noCourseText = !hasCourse ? 'no enrolled course' : ''
+
       const noPackageText = !hasCourse ? 'no enrolled package' : ''
 
-      return (
+      // ================= SEARCH FILTER =================
+
+      const searchMatched =
         user.userId?.toLowerCase().includes(queryLower) ||
         user.name?.toLowerCase().includes(queryLower) ||
         user.email?.toLowerCase().includes(queryLower) ||
@@ -68,66 +95,108 @@ const Userlist = () => {
         packageName.includes(queryLower) ||
         noCourseText.includes(queryLower) ||
         noPackageText.includes(queryLower)
-      )
+
+      // ================= BATCH FILTER =================
+
+      let batchMatched = true
+
+      if (batchFilter) {
+        const selectedBatch = batches[batchFilter]
+
+        if (selectedBatch) {
+          const purchaseDateString = user.courseDetails?.purchaseHistory?.[0]?.date
+
+          if (!purchaseDateString) {
+            batchMatched = false
+          } else {
+            // ================= USER PURCHASE DATE =================
+
+            // example:
+            // 19/5/2026, 2:17:24 pm
+
+            const onlyDate = purchaseDateString.split(',')[0].trim()
+
+            const [day, month, year] = onlyDate.split('/')
+
+            const purchaseDate = new Date(Number(year), Number(month) - 1, Number(day))
+
+            // ================= BATCH START DATE =================
+
+            const [startDay, startMonth, startYear] = selectedBatch.start.split('/')
+
+            const startDate = new Date(Number(startYear), Number(startMonth) - 1, Number(startDay))
+
+            // ================= BATCH END DATE =================
+
+            const [endDay, endMonth, endYear] = selectedBatch.end.split('/')
+
+            const endDate = new Date(Number(endYear), Number(endMonth) - 1, Number(endDay))
+
+            // ================= MATCH =================
+
+            batchMatched = purchaseDate >= startDate && purchaseDate <= endDate
+          }
+        }
+      }
+
+      return searchMatched && batchMatched
     })
+  // const queryLower = query.toLowerCase()
+
+  // const hasCourse = !!user.courseDetails
+  // const courseName = user.courseDetails?.courseName?.toLowerCase() || ''
+  // const packageName = user.courseDetails?.packageName?.toLowerCase() || ''
+
+  // // 👇 virtual searchable labels
+  // const noCourseText = !hasCourse ? 'no enrolled course' : ''
+  // const noPackageText = !hasCourse ? 'no enrolled package' : ''
+
+  // return (
+  //   user.userId?.toLowerCase().includes(queryLower) ||
+  //   user.name?.toLowerCase().includes(queryLower) ||
+  //   user.email?.toLowerCase().includes(queryLower) ||
+  //   user.phone?.toLowerCase().includes(queryLower) ||
+  //   courseName.includes(queryLower) ||
+  //   packageName.includes(queryLower) ||
+  //   noCourseText.includes(queryLower) ||
+  //   noPackageText.includes(queryLower)
+  // )
+
   const indexOfLastUser = currentPage * usersPerPage
   const indexOfFirstUser = indexOfLastUser - usersPerPage
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser)
 
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage)
 
-  // const downloadUsersPDF = () => {
-  //   const doc = new jsPDF();
+  const downloadUsersPDF = () => {
+    const doc = new jsPDF();
 
-  //   doc.setFontSize(16);
-  //   doc.text("User List (Name & Phone)", 14, 15);
+    doc.setFontSize(16);
+    doc.text("User List (Name & Phone)", 14, 15);
 
-  //   const tableColumn = ["S/N", "Name", "Phone","Package Name"];
-  //   const tableRows = [];
+    const tableColumn = ["S/N", "Name", "Phone","Package Name"];
+    const tableRows = [];
 
-  //   filteredUsers.forEach((user, index) => {
-  //     tableRows.push([
-  //       index + 1,
-  //       user.name || "N/A",
-  //       user.phone || "N/A",
-  //        user.courseDetails?.packageName ||
-  //                    "No Enrolled Package"
+    filteredUsers.forEach((user, index) => {
+      tableRows.push([
+        index + 1,
+        user.name || "N/A",
+        user.phone || "N/A",
+         user.courseDetails?.packageName ||
+                     "No Enrolled Package"
 
-  //     ]);
-  //   });
+      ]);
+    });
 
-  //   autoTable(doc, {
-  //     head: [tableColumn],
-  //     body: tableRows,
-  //     startY: 25,
-  //   });
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 25,
+    });
 
-  //   doc.save("users-name-phone.pdf");
-  // };
-  // const downloadUsersPDF = () => {
-  //   const doc = new jsPDF()
-
-  //   doc.setFontSize(16)
-  //   doc.text('Users Without Package', 14, 15)
-
-  //   const tableColumn = ['S/N', 'Name', 'Phone']
-  //   const tableRows = []
-
-  //   // Filter users who did NOT purchase any package
-  //   const usersWithoutPackage = filteredUsers.filter((user) => !user.courseDetails?.packageName)
-
-  //   usersWithoutPackage.forEach((user, index) => {
-  //     tableRows.push([index + 1, user.name || 'N/A', user.phone || 'N/A'])
-  //   })
-
-  //   autoTable(doc, {
-  //     head: [tableColumn],
-  //     body: tableRows,
-  //     startY: 25,
-  //   })
-
-  //   doc.save('users-without-package.pdf')
-  // }
+    doc.save("users-name-phone.pdf");
+  };
+ 
 
   if (loading) return <p className="text-center mt-5">Loading users...</p>
 
@@ -135,6 +204,22 @@ const Userlist = () => {
     <>
       <CCardHeader className="d-flex justify-content-between align-items-center mb-3">
         <h5>All Users</h5>
+        <select
+          className="form-select w-25"
+          value={batchFilter}
+          onChange={(e) => {
+            setBatchFilter(e.target.value)
+            setCurrentPage(1)
+          }}
+        >
+          <option value="">All Batches</option>
+
+          {Object.entries(batches).map(([key, batch]) => (
+            <option key={key} value={key}>
+              {batch.label}
+            </option>
+          ))}
+        </select>
         <CFormInput
           className="w-25"
           placeholder="Search user..."
@@ -144,9 +229,9 @@ const Userlist = () => {
             setCurrentPage(1)
           }}
         />
-        {/* <button className="btn btn-success ms-2" onClick={downloadUsersPDF}>
+        <button className="btn btn-success ms-2" onClick={downloadUsersPDF}>
           Download PDF
-        </button> */}
+        </button>
       </CCardHeader>
 
       {filteredUsers.length > 0 ? (
@@ -189,19 +274,22 @@ const Userlist = () => {
                       <span className="text-muted">No Enrolled Course</span>
                     )}
                   </CTableDataCell>
-                  <CTableDataCell>{user.courseDetails?.purchaseHistory[0].date}</CTableDataCell>
+                  <CTableDataCell>
+                    {user.courseDetails?.purchaseHistory?.[0]?.date || 'N/A'}
+                  </CTableDataCell>
                   <CTableDataCell>
                     {user.courseDetails?.packageName || (
                       <span className="text-muted">No Enrolled Package</span>
                     )}
-                    <br />  {{
-    "Learner Course": 1770,
-    "Master Course": 3540,
-    "Pro Master Course": 7080,
-    "Teacher Course": 11800,
-    "Pro Teacher Course": 59000,
-    "Monthly Subscription": 944,
-  }[user.courseDetails?.packageName] || "0000"}
+                    <br />{' '}
+                    {{
+                      'Learner Course': 1770,
+                      'Master Course': 3540,
+                      'Pro Master Course': 7080,
+                      'Teacher Course': 11800,
+                      'Pro Teacher Course': 59000,
+                      'Monthly Subscription': 944,
+                    }[user.courseDetails?.packageName] || '0000'}
                   </CTableDataCell>
                   <CTableHeaderCell>{user.status}</CTableHeaderCell>
                   <CTableHeaderCell HeaderCell className="text-center">
