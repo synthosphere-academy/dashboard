@@ -33,6 +33,7 @@ const Pendinguser = React.lazy(() => import('./components/User/Pendinguser'))
 const Edituser = React.lazy(() => import('./components/User/Edituser'))
 const Rankusers = React.lazy(()=> import("./components/Rankusers"))
 const Scholarship = React.lazy(() => import('./components/Scholarship/Scholarship'))
+const MonthlySubscriptionUsers = React.lazy(() => import('./components/User/MonthlySubscriptionUsers'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -67,6 +68,7 @@ const routes = [
   { path: '/theme/typography', name: 'Typography', element: Typography },
   {path: '/pendinguser', name: 'Pendinguser', element: Pendinguser},
   { path: '/user/edituser/:userId', name: 'Edituser', element: Edituser },
+  { path: '/monthly-subscription-users', name: 'Monthly Subscription Users', element: MonthlySubscriptionUsers },
 
  
   { path: '/widgets', name: 'Widgets', element: Widgets },

@@ -92,6 +92,16 @@ const _nav = [
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   {
+      component: CNavTitle,
+      name: 'Subscriptions',
+  },
+  {
+    component: CNavItem,
+    name: 'Subscription Users',
+    to: '/monthly-subscription-users',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'Rank',
   },
