@@ -19,7 +19,8 @@ function Payout() {
   const [loading, setLoading] = useState(false)
   const [generating, setGenerating] = useState(false)
   const [updating, setUpdating] = useState(null)
-
+  // bulk status update state (if needed in future)
+  const [selectedPayouts, setSelectedPayouts] = useState([])
   // 🔹 Filters
   const [amountFilter, setAmountFilter] = useState('200') // all | 200 (default 200)
   const [selectedDate, setSelectedDate] = useState('')
@@ -60,13 +61,9 @@ function Payout() {
   }, [])
 
   // ================= UNIQUE PAYOUT DATES =================
-  // 
+  //
   // const payoutDates = [...new Set(payouts.map((p) => p.date))]
-  const payoutDates = [
-  ...new Set(
-    payouts.map((p) => p.date.split(",")[0].trim())
-  ),
-]
+  const payoutDates = [...new Set(payouts.map((p) => p.date.split(',')[0].trim()))]
 
   // ================= FILTERED PAYOUTS =================
   const filteredPayouts = payouts.filter((p) => {
@@ -76,15 +73,11 @@ function Payout() {
     if (amountFilter === '200' && netAmount < 200) return false
 
     // ✅ Date filter (only if selected)
-    const onlyDate = p.date.split(",")[0].trim()
+    const onlyDate = p.date.split(',')[0].trim()
 
-if (selectedDate && onlyDate !== selectedDate) return false
+    if (selectedDate && onlyDate !== selectedDate) return false
     // if (selectedDate && p.date !== selectedDate) return false
-     if (
-    searchName &&
-    !p.name.toLowerCase().includes(searchName.toLowerCase())
-  )
-    return false
+    if (searchName && !p.name.toLowerCase().includes(searchName.toLowerCase())) return false
     return true
   })
 
@@ -93,7 +86,14 @@ if (selectedDate && onlyDate !== selectedDate) return false
     (sum, p) => sum + (p.amount - p.amount * 0.05),
     0,
   )
-
+  // checkbox handler
+  const handleSelectPayout = (payout) => {
+    setSelectedPayouts((prev) =>
+      prev.find((x) => x.payoutId === payout.payoutId)
+        ? prev.filter((x) => x.payoutId !== payout.payoutId)
+        : [...prev, payout],
+    )
+  }
   // ================= GENERATE PAYOUT =================
   const handleGeneratePayout = async () => {
     try {
@@ -118,10 +118,9 @@ if (selectedDate && onlyDate !== selectedDate) return false
   const handleStatusUpdate = async (userId, payoutId, newStatus) => {
     try {
       setUpdating(payoutId)
-      const res = await axios.put(
-        `${ROOT_URL}/api/payout/status/${userId}/${payoutId}/status`,
-        { status: newStatus },
-      )
+      const res = await axios.put(`${ROOT_URL}/api/payout/status/${userId}/${payoutId}/status`, {
+        status: newStatus,
+      })
 
       if (res.data.success) {
         swal('Success', res.data.message, 'success')
@@ -137,11 +136,54 @@ if (selectedDate && onlyDate !== selectedDate) return false
     }
   }
 
+  const handleBulkComplete = async () => {
+  if (selectedPayouts.length === 0) {
+    return swal(
+      'Warning',
+      'Please select at least one payout',
+      'warning'
+    )
+  }
+
+  try {
+    await Promise.all(
+      selectedPayouts.map((p) =>
+        axios.put(
+          `${ROOT_URL}/api/payout/status/${p.userId}/${p.payoutId}/status`,
+          {
+            status: 'completed',
+          }
+        )
+      )
+    )
+
+    swal(
+      'Success',
+      `${selectedPayouts.length} payouts completed`,
+      'success'
+    )
+
+    setSelectedPayouts([])
+    fetchPayouts()
+  } catch (error) {
+    console.error(error)
+    swal('Error', 'Bulk update failed', 'error')
+  }
+}
+
   return (
     <>
       {/* ================= HEADER ================= */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="fw-bold">All User Payouts</h5>
+        <CButton
+  color="primary"
+  className="ms-2"
+  onClick={handleBulkComplete}
+  disabled={selectedPayouts.length === 0}
+>
+  Complete Selected ({selectedPayouts.length})
+</CButton>
         <CButton
           color="success"
           className="text-white"
@@ -190,16 +232,16 @@ if (selectedDate && onlyDate !== selectedDate) return false
           </select>
         </div>
         {/* Username Search */}
-<div className="col-md-3">
-  <label className="fw-bold">Search Username</label>
-  <input
-    type="text"
-    className="form-control"
-    placeholder="Enter username..."
-    value={searchName}
-    onChange={(e) => setSearchName(e.target.value)}
-  />
-</div>
+        <div className="col-md-3">
+          <label className="fw-bold">Search Username</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter username..."
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+          />
+        </div>
 
         {/* Total */}
         <div className="col-md-3 d-flex align-items-end">
@@ -208,7 +250,6 @@ if (selectedDate && onlyDate !== selectedDate) return false
           </div>
         </div>
       </div>
-      
 
       {/* ================= TABLE ================= */}
       {loading ? (
@@ -220,6 +261,7 @@ if (selectedDate && onlyDate !== selectedDate) return false
         <CTable responsive bordered hover align="middle">
           <CTableHead color="dark">
             <CTableRow className="text-center">
+              <CTableHeaderCell>Select</CTableHeaderCell>
               <CTableHeaderCell>#</CTableHeaderCell>
               <CTableHeaderCell>User Name</CTableHeaderCell>
               <CTableHeaderCell>User ID</CTableHeaderCell>
@@ -235,86 +277,74 @@ if (selectedDate && onlyDate !== selectedDate) return false
             {filteredPayouts.length > 0 ? (
               filteredPayouts.map((p, index) => (
                 <CTableRow key={p.payoutId}>
+                  <CTableDataCell>
+                    <input
+                      type="checkbox"
+                      checked={selectedPayouts.some((item) => item.payoutId === p.payoutId)}
+                      disabled={p.status !== 'pending'}
+                      onChange={() => handleSelectPayout(p)}
+                    />
+                  </CTableDataCell>
                   <CTableDataCell>{index + 1}</CTableDataCell>
                   <CTableDataCell>{p.name}</CTableDataCell>
                   <CTableDataCell>{p.userId}</CTableDataCell>
                   <CTableDataCell>₹{p.amount}</CTableDataCell>
                   <CTableDataCell>{p.date}</CTableDataCell>
+                  <CTableDataCell>₹{(p.amount - p.amount * 0.05).toFixed(2)}</CTableDataCell>
                   <CTableDataCell>
-                    ₹{(p.amount - p.amount * 0.05).toFixed(2)}
+                    <span
+                      className={`badge px-3 py-2 ${
+                        p.status === 'completed'
+                          ? 'bg-success'
+                          : p.status === 'pending'
+                            ? 'bg-warning text-dark'
+                            : 'bg-danger'
+                      }`}
+                    >
+                      {p.status === 'failed' ? 'Cancelled' : p.status}
+                    </span>
                   </CTableDataCell>
-                 <CTableDataCell>
-  <span
-    className={`badge px-3 py-2 ${
-      p.status === 'completed'
-        ? 'bg-success'
-        : p.status === 'pending'
-        ? 'bg-warning text-dark'
-        : 'bg-danger'
-    }`}
-  >
-    {p.status === 'failed' ? 'Cancelled' : p.status}
-  </span>
-</CTableDataCell>
 
-<CTableDataCell>
+                  <CTableDataCell>
+                    {p.status === 'completed' ? (
+                      <CButton size="sm" disabled>
+                        Completed
+                      </CButton>
+                    ) : p.status === 'failed' ? (
+                      <CButton color="danger" size="sm" disabled>
+                        Cancelled
+                      </CButton>
+                    ) : (
+                      <>
+                      <div className="d-flex justify-content-center">
+                        <CButton
+                          color="primary"
+                          size="sm"
+                          disabled={updating === p.payoutId}
+                          onClick={() => handleStatusUpdate(p.userId, p.payoutId, 'completed')}
+                        >
+                          {updating === p.payoutId ? (
+                            <>
+                              <CSpinner size="sm" /> Updating...
+                            </>
+                          ) : (
+                            'Completed'
+                          )}
+                        </CButton>
 
-  {p.status === 'completed' ? (
-
-    <CButton size="sm" disabled>
-      Completed
-    </CButton>
-
-  ) : p.status === 'failed' ? (
-
-    <CButton color="danger" size="sm" disabled>
-      Cancelled
-    </CButton>
-
-  ) : (
-
-    <>
-      <CButton
-        color="primary"
-        size="sm"
-        disabled={updating === p.payoutId}
-        onClick={() =>
-          handleStatusUpdate(
-            p.userId,
-            p.payoutId,
-            'completed'
-          )
-        }
-      >
-        {updating === p.payoutId ? (
-          <>
-            <CSpinner size="sm" />
-            {' '}Updating...
-          </>
-        ) : (
-          'Mark Completed'
-        )}
-      </CButton>
-
-      <CButton
-        color="danger"
-        size="sm"
-        className="ms-2"
-        disabled={updating === p.payoutId}
-        onClick={() =>
-          handleStatusUpdate(
-            p.userId,
-            p.payoutId,
-            'failed'
-          )
-        }
-      >
-        Cancel
-      </CButton>
-    </>
-  )}
-
-</CTableDataCell>
+                        <CButton
+                          color="danger"
+                          size="sm"
+                          className="ms-2"
+                          disabled={updating === p.payoutId}
+                          onClick={() => handleStatusUpdate(p.userId, p.payoutId, 'failed')}
+                        >
+                          Cancel
+                        </CButton>
+                        </div>
+                      </>
+                    )}
+                  </CTableDataCell>
                 </CTableRow>
               ))
             ) : (
