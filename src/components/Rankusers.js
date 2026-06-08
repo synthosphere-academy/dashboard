@@ -43,6 +43,8 @@ const Rankusers = () => {
   const [status, setStatus] = useState("");
   const [processing, setProcessing] = useState(false);
   const [allRanks, setAllRanks] = useState([]);
+  const [search, setSearch] = useState("");
+const [rankFilter, setRankFilter] = useState("");
 
   // 🚀 Fetch all saved ranks
   const fetchAllRanks = async () => {
@@ -126,9 +128,13 @@ const Rankusers = () => {
 
   return (
     <div className="p-2">
-    <div className=" d-flex mb-3" style={{ maxWidth: "250px" }}>
-    <div className="mt-2">Select Status: </div>
+   
+<div className="d-flex gap-5 mb-3 flex-wrap">
+
+  {/* Status Filter */}
+ 
     <div>
+       <label>Status</label>
   <select
     className="form-select"
     value={filter}
@@ -141,6 +147,36 @@ const Rankusers = () => {
    
   </select>
   </div>
+  {/* Search */}
+  <div>
+    <label>Search</label>
+    <input
+      type="text"
+      className="form-control"
+      placeholder="Search User ID / Name"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+  </div>
+
+  {/* Rank Filter */}
+  <div>
+    <label>Rank</label>
+    <select
+      className="form-select"
+      value={rankFilter}
+      onChange={(e) => setRankFilter(e.target.value)}
+    >
+      <option value="">All Ranks</option>
+
+      {tableData.map((item) => (
+        <option key={item.no} value={item.name}>
+          {item.name}
+        </option>
+      ))}
+    </select>
+  </div>
+
 </div>
 
       <h4 className="mt-4">All Ranks</h4>
@@ -170,13 +206,26 @@ const Rankusers = () => {
         
   {allRanks.length > 0 ? (
     allRanks
-      .filter((rank) => {
-        if (filter === "pending")
-          return rank.rewards.some((r) => r.status === "pending");
-        if (filter === "approved")
-          return rank.rewards.some((r) => r.status === "approved");
-       
-      })
+  .filter((rank) => {
+    // Status Filter
+    const statusMatch =
+      filter === "pending"
+        ? rank.rewards.some((r) => r.status === "pending")
+        : rank.rewards.some((r) => r.status === "approved");
+
+    // Search Filter
+    const searchMatch =
+      rank.name?.toLowerCase().includes(search.toLowerCase()) ||
+      rank.userId?.toLowerCase().includes(search.toLowerCase());
+
+    // Rank Filter
+    const rankMatch =
+      rankFilter === ""
+        ? true
+        : rank.rewards.some((r) => r.rankName === rankFilter);
+
+    return statusMatch && searchMatch && rankMatch;
+  })
       .map((rank, index) => {
         const visibleRewards =
           filter === "pending"
