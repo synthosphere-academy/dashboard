@@ -14,7 +14,7 @@ const Allcourses = () => {
       name: "Learner Course",
       price: " 1770",
       subcription: "One Month",
-   
+      paymentUrl: "https://rzp.io/rzp/snXe9FQ",
       points: "1500",
       features: [
         "Basic Crypto Knowledge",
@@ -23,14 +23,14 @@ const Allcourses = () => {
         "Portfolio Management Guide",
         "One Month Spot Call",
         "Basic Fundamental Analysis, Technical Analysis",
-        "Online Education Videos",
+        "Online Educational Videos",
       ],
     },
     {
       name: "Master Course",
       price: " 3540",
       subcription: "Three Months",
-     
+      paymentUrl: "https://rzp.io/rzp/5mLcADG",
       points: "3000",
       features: [
         "Advance Crypto Knowledge",
@@ -39,7 +39,7 @@ const Allcourses = () => {
         "Advance Portfolio Management",
         "Spot & Future Trading Call (2 Months)",
         "Advance Fundamental Analysis, Technical Analysis",
-        "Online Education Videos",
+        "Online Educational Videos",
         "Regular PNL Strategy",
         "Basic Liquidation Strategy",
       ],
@@ -48,7 +48,7 @@ const Allcourses = () => {
       name: "Pro Master Course",
       price: " 7080",
       subcription: "Six Months",
-      
+      paymentUrl: "https://rzp.io/rzp/Evi8l73",
       points: "6000",
       features: [
         "A To Z Advance Crypto Knowledge",
@@ -63,7 +63,7 @@ const Allcourses = () => {
 
         "Advance Fundamental Analysis, Technical Analysis",
 
-        "Online Education Videos",
+        "Online Educational Videos",
 
         "Risk Management Strategy",
         "Regular PNL Strategy",
@@ -86,8 +86,9 @@ const Allcourses = () => {
     {
       name: "Teacher Course",
       price: " 11800 ",
+      subcription: "One year",
       points: "10000",
-      
+      paymentUrl: "https://rzp.io/rzp/0tfCXyMC",
       features: [
         "A To Z Advance Crypto Knowledge",
 
@@ -101,7 +102,7 @@ const Allcourses = () => {
 
         "Advance Fundamental Analysis, Technical Analysis",
 
-        "Online Education Videos",
+        "Online Educational Videos",
 
         "Risk Management Strategy",
 
@@ -129,30 +130,59 @@ const Allcourses = () => {
       ],
     },
     {
-      name: "Pro Teacher Course",
-      price: " 59000",
-      points: "25000",
-     
+      name: "Classic Traders",
+      subcription: "One Month",
+      price: "708",
+      points: "600",
       features: [
-        "Advance Crypto SIP Guide",
-"Advance Portfolio Management",
-"Spot & Future Trading Call (12 Months)",
-"Advance Fundamental Analysis, Technical Analysis",
-"Online Education Videos",
-"Risk Management Strategy",
-"Regular PNL Strategy",
-"Basic Liquidation Strategy",
-"Gem Coin Finding Strategy",
-"Premium Future Trading Strategy",
-"Premium Portfolio Management Strategy",
-"Five Long-Term Holding Coins Name",
-"Trading Fund Management Strategy",
-"A To Z Advance Fundamental Analysis, Technical Analysis",
-"Whales Wallet Tracking",
-"Crypto Taxation",
-"Crypto Rules & Knowledge",
-"Dex & Cex Arbitrage Model",
-"Monthly 2% Scholarship"
+        "Regular live trading",
+        "Regular live Technical Analysis",
+        "Live Fundamental Analysis",
+        "Live chart drawing",
+        "Live full trading strategy"
+      ],
+    },
+    // {
+    //   name: "Pro Teacher Course",
+    //   price: " 59000",
+    //   subcription: "One year",
+    //   points: "25000",
+    //   paymentUrl: "https://rzp.io/rzp/l0v8sIii",
+    //   features: [
+    //     "Advance Crypto SIP Guide",
+    //     "Advance Portfolio Management",
+    //     "Spot & Future Trading Call (12 Months)",
+    //     "Advance Fundamental Analysis, Technical Analysis",
+    //     "Online Educational Videos",
+    //     "Risk Management Strategy",
+    //     "Regular PNL Strategy",
+    //     "Basic Liquidation Strategy",
+    //     "Gem Coin Finding Strategy",
+    //     "Premium Future Trading Strategy",
+    //     "Premium Portfolio Management Strategy",
+    //     "Five Long-Term Holding Coins Name",
+    //     "Trading Fund Management Strategy",
+    //     "A To Z Advance Fundamental Analysis, Technical Analysis",
+    //     "Whales Wallet Tracking",
+    //     "Crypto Taxation",
+    //     "Crypto Rules & Knowledge",
+    //     "Dex & Cex Arbitrage Model",
+    //     "Monthly 2% Scholarship",
+    //   ],
+    // },
+     {
+      name: "Basic Subscription",
+      price: "472",
+      points: "400",
+
+      gold: true,
+      features: [
+        "Monthly Trading Guidance",
+        "Monthly Special Classes",
+        "Expert Advice",
+        "Two Coin Suggestion",
+        "One Special Call",
+        "Trade Call Signals(1 Month)",
       ],
     },
     {
@@ -167,12 +197,12 @@ const Allcourses = () => {
         "Expert Advice",
         "Two Coin Suggestion",
         "One Special Call",
-        "Trade Call Signals(1 Month)"
+        "Trade Call Signals(1 Month)",
       ],
     },
      {
       name: "Premium Monthly Subscription",
-      price: "1880",
+      price: "1888",
       points: "1600",
       paymentUrl: "https://rzp.io/rzp/yx0C4LX",
       gold: true,
@@ -200,8 +230,8 @@ const Allcourses = () => {
         "Trade Call Signals(1 Month)",
       ],
     },
+   
   ];
-
   return (
    
     <>
