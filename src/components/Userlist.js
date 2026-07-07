@@ -66,6 +66,67 @@ const Userlist = () => {
       start: '16/6/2026',
       end: '30/6/2026',
     },
+     10: {
+      label: 'Batch 10',
+      start: '1/7/2026',
+      end: '15/7/2026',
+    },
+     11: {
+      label: 'Batch 11',
+      start: '16/7/2026',
+      end: '31/7/2026',
+    },
+    12:{
+      label: 'Batch 12',
+      start: '1/8/2026',
+      end: '15/8/2026',
+    },
+    13:{
+      label: 'Batch 13',
+      start: '16/8/2026',
+      end: '31/8/2026',
+    },
+    14:{
+      label: 'Batch 14',
+      start: '1/9/2026',
+      end: '15/9/2026',
+    },
+    15:{
+      label: 'Batch 15',
+      start: '16/9/2026',
+      end: '30/9/2026', 
+    },
+    16:{
+      label: 'Batch 16',
+      start: '1/10/2026',
+      end: '15/10/2026',
+    },
+    17:{
+      label: 'Batch 17',
+      start: '16/10/2026',
+      end: '31/10/2026',
+    },
+    18:{
+      label: 'Batch 18',
+      start: '1/11/2026',
+      end: '15/11/2026',  
+    },
+    19:{
+      label: 'Batch 19',
+      start: '16/11/2026',
+      end: '30/11/2026',  
+    },
+    20:{
+      label: 'Batch 20',
+      start: '1/12/2026',
+      end: '15/12/2026',
+    },
+    21:{
+      label: 'Batch 21',
+      start: '16/12/2026',
+      end: '31/12/2026',  
+    },
+    
   }
   // Filter users by search
   const filteredUsers = users
