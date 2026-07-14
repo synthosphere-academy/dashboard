@@ -25,6 +25,17 @@ const Userlist = () => {
   const [batchFilter, setBatchFilter] = useState('')
   const usersPerPage = 50
 
+
+  const getPurchaseDate = (user) => {
+  const history = user.courseDetails?.purchaseHistory || [];
+  const currentPackage = user.courseDetails?.packageName;
+
+  const purchase = [...history]
+    .reverse() // latest থেকে search করবে
+    .find((item) => item.packageName === currentPackage);
+
+  return purchase?.date || "N/A";
+};
   // Fetch all users
   const fetchUsers = async () => {
     try {
@@ -165,7 +176,8 @@ const Userlist = () => {
         const selectedBatch = batches[batchFilter]
 
         if (selectedBatch) {
-          const purchaseDateString = user.courseDetails?.purchaseHistory?.[0]?.date
+          // const purchaseDateString = user.courseDetails?.purchaseHistory?.[0]?.date
+          const purchaseDateString = getPurchaseDate(user)
 
           if (!purchaseDateString) {
             batchMatched = false
@@ -335,9 +347,12 @@ const Userlist = () => {
                       <span className="text-muted">No Enrolled Course</span>
                     )}
                   </CTableDataCell>
-                  <CTableDataCell>
+                  {/* <CTableDataCell>
                     {user.courseDetails?.purchaseHistory?.[0]?.date || 'N/A'}
-                  </CTableDataCell>
+                  </CTableDataCell> */}
+                  <CTableDataCell>
+  {getPurchaseDate(user)}
+</CTableDataCell>
                   <CTableDataCell>
                     {user.courseDetails?.packageName || (
                       <span className="text-muted">No Enrolled Package</span>
