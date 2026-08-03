@@ -35,11 +35,11 @@ const Rankusers = React.lazy(()=> import("./components/Rankusers"))
 const Scholarship = React.lazy(() => import('./components/Scholarship/Scholarship'))
 const MonthlySubscriptionUsers = React.lazy(() => import('./components/User/MonthlySubscriptionUsers'))
 const Classictraders = React.lazy(() => import('./components/User/Classictraders'))
-const Depositrequestlist = React.lazy(() => import('./components/P2P/Depositrequestlist'))
-const Alldeposit = React.lazy(() => import('./components/P2P/Alldeposit'))
-const P2pmatching = React.lazy(() => import('./components/P2P/P2pmatching'))
-const Allpaymentverify = React.lazy(() => import('./components/P2P/Allpaymentverify'))
-const Allpaymentdone = React.lazy(() => import('./components/P2P/Allpaymentdone'))
+// const Depositrequestlist = React.lazy(() => import('./components/P2P/Depositrequestlist'))
+// const Alldeposit = React.lazy(() => import('./components/P2P/Alldeposit'))
+// const P2pmatching = React.lazy(() => import('./components/P2P/P2pmatching'))
+// const Allpaymentverify = React.lazy(() => import('./components/P2P/Allpaymentverify'))
+// const Allpaymentdone = React.lazy(() => import('./components/P2P/Allpaymentdone'))
 const Supporchat = React.lazy(() => import('./components/Supporchat'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -79,11 +79,11 @@ const routes = [
   { path: '/classic-traders', name: 'Classic Traders', element: Classictraders },
  
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/depositrequests', name: 'Deposit Requests', element: Depositrequestlist },
-  { path: '/alldeposits', name: 'All Deposits', element: Alldeposit },
-  { path: '/P2pmatching', name: 'P2pmatching', element: P2pmatching },
-  { path: '/allpaymentverify', name: 'All Payment Verify', element: Allpaymentverify },
-  { path: '/allpaymentdone', name: 'All Verified Payments', element: Allpaymentdone },
+  // { path: '/depositrequests', name: 'Deposit Requests', element: Depositrequestlist },
+  // { path: '/alldeposits', name: 'All Deposits', element: Alldeposit },
+  // { path: '/P2pmatching', name: 'P2pmatching', element: P2pmatching },
+  // { path: '/allpaymentverify', name: 'All Payment Verify', element: Allpaymentverify },
+  // { path: '/allpaymentdone', name: 'All Verified Payments', element: Allpaymentdone },
   { path: '/supportchat', name: 'Support Chat', element: Supporchat }
 ]
 export default routes
