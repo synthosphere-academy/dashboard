@@ -135,7 +135,7 @@ const Dashboard = () => {
                 {courseCount['Teacher Course'] || 0}
               </CTableDataCell>
             </CTableRow>
-            <CTableRow>
+            {/* <CTableRow>
               <CTableDataCell className="text-center">Pro Teacher Course</CTableDataCell>
               <CTableDataCell className="text-center">9000/-</CTableDataCell>
               <CTableDataCell className="text-center">50000/-</CTableDataCell>
@@ -143,7 +143,7 @@ const Dashboard = () => {
               <CTableDataCell className="text-center">
                 {courseCount['Pro Teacher Course'] || 0}
               </CTableDataCell>
-            </CTableRow>
+            </CTableRow> */}
             <CTableRow>
               <CTableDataCell className="text-center">Monthly Subscription</CTableDataCell>
               <CTableDataCell className="text-center">144/-</CTableDataCell>

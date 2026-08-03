@@ -126,8 +126,52 @@ const _nav = [
     name: 'Scholarship Achievers',
     to: '/scholarship',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  }
+  },
+  {
+    component: CNavTitle,
+    name: 'Support',
 
+  },
+  {
+    component: CNavItem,
+    name: 'Support Chat',
+    to: '/supportchat',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  // {
+  //   component: CNavTitle,
+  //   name: 'P2P System',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Deposit Requests',
+  //   to: '/depositrequests',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'All Deposits',
+  //   to: '/alldeposits',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'P2pmatching',
+  //   to: '/P2pmatching',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'All Payment Verify',
+  //   to: '/allpaymentverify',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'All Verified Payments',
+  //   to: '/allpaymentdone',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // }
   
   // {
   //   component: CNavTitle,
