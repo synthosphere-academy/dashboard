@@ -31,7 +31,7 @@ const Charts = () => {
     fetchDashboardStats();
   }, []);
   // const july = stats.currentMonthAmount || 0;
-  const aug = stats.currentMonthAmount || 0
+  const sep = stats.currentMonthAmount || 0
   // const december = 500000;
   return (
     <CRow>
@@ -41,13 +41,13 @@ const Charts = () => {
           <CCardBody>
             <CChartBar
               data={{
-                labels: [ 'November', 'December', 'January', 'February', 'March','April','May','June', 'July', 'August'],
+                labels: [ 'November', 'December', 'January', 'February', 'March','April','May','June', 'July', 'August', 'September'],
                 datasets: [
                   {
                     label: 'Amount',
                     
                     backgroundColor: '#f87979',
-                    data: [ 32804,78470, 56994, 62894,308098, 287448,268450, 336064, 233640, aug],
+                    data: [ 32804,78470, 56994, 62894,308098, 287448,268450, 336064, 233640,157648, sep],
                   },
                 ],
               }}
