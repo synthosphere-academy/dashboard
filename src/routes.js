@@ -35,6 +35,7 @@ const Rankusers = React.lazy(()=> import("./components/Rankusers"))
 const Scholarship = React.lazy(() => import('./components/Scholarship/Scholarship'))
 const MonthlySubscriptionUsers = React.lazy(() => import('./components/User/MonthlySubscriptionUsers'))
 const Classictraders = React.lazy(() => import('./components/User/Classictraders'))
+const Couponcode = React.lazy(() => import('./components/Couponcode'))
 // const Depositrequestlist = React.lazy(() => import('./components/P2P/Depositrequestlist'))
 // const Alldeposit = React.lazy(() => import('./components/P2P/Alldeposit'))
 // const P2pmatching = React.lazy(() => import('./components/P2P/P2pmatching'))
@@ -77,7 +78,7 @@ const routes = [
   { path: '/user/edituser/:userId', name: 'Edituser', element: Edituser },
   { path: '/monthly-subscription-users', name: 'Monthly Subscription Users', element: MonthlySubscriptionUsers },
   { path: '/classic-traders', name: 'Classic Traders', element: Classictraders },
- 
+  { path: '/couponcode', name: 'Coupon Code', element: Couponcode },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   // { path: '/depositrequests', name: 'Deposit Requests', element: Depositrequestlist },
   // { path: '/alldeposits', name: 'All Deposits', element: Alldeposit },

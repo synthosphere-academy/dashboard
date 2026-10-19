@@ -138,11 +138,19 @@ const _nav = [
     to: '/supportchat',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+  {
+    component: CNavItem,
+    name: 'Coupon Code',
+    to: '/couponcode',
+     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  }
   // {
   //   component: CNavTitle,
   //   name: 'P2P System',
   // },
   // {
+
+   
   //   component: CNavItem,
   //   name: 'Deposit Requests',
   //   to: '/depositrequests',
@@ -167,6 +175,8 @@ const _nav = [
   //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   // },
   // {
+
+  
   //   component: CNavItem,
   //   name: 'All Verified Payments',
   //   to: '/allpaymentdone',
