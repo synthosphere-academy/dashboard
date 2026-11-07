@@ -86,7 +86,7 @@ const Pendingkyc = () => {
               <CTableHeaderCell>S/N</CTableHeaderCell>
               <CTableHeaderCell>User ID</CTableHeaderCell>
               <CTableHeaderCell>Name</CTableHeaderCell>
-              <CTableHeaderCell>Bank name</CTableHeaderCell>
+              <CTableHeaderCell>Bank name & Account type</CTableHeaderCell>
               <CTableHeaderCell>Bank Account & ifscCode</CTableHeaderCell>
                <CTableHeaderCell>Passbook photo</CTableHeaderCell>
               <CTableHeaderCell className="text-center">Action</CTableHeaderCell>
@@ -98,7 +98,7 @@ const Pendingkyc = () => {
                 <CTableDataCell>{index + 1}</CTableDataCell>
                 <CTableDataCell>{user.userId}</CTableDataCell>
                 <CTableDataCell>{user.name}</CTableDataCell>
-                 <CTableDataCell>{user.bankName}</CTableDataCell>
+                 <CTableDataCell>{user.bankName} & {user.accountType}</CTableDataCell>
                  <CTableDataCell>{user.accountNo} & {user.ifscCode}
                  </CTableDataCell>
                  <CTableDataCell>

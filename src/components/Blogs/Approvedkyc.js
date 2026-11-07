@@ -74,6 +74,7 @@ const Approvedkyc = () => {
               <CTableHeaderCell>Branch Name</CTableHeaderCell>
                <CTableHeaderCell>Account No</CTableHeaderCell>
                 <CTableHeaderCell>Ifsc Code</CTableHeaderCell>
+                 <CTableHeaderCell>Account type</CTableHeaderCell>
               <CTableHeaderCell>KYC Status</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
@@ -87,6 +88,7 @@ const Approvedkyc = () => {
                  <CTableDataCell>{user.branchName}</CTableDataCell>
                 <CTableDataCell>{user.accountNo}</CTableDataCell>
                 <CTableDataCell>{user.ifscCode}</CTableDataCell>
+                <CTableDataCell>{user.accountType? user.accountType : "-"}</CTableDataCell>
                 <CTableDataCell>
                   <span
                     style={{
