@@ -55,7 +55,7 @@ const WidgetsDropdown = (props) => {
             <CWidgetStatsA
               className="widgetheight"
               color="primary"
-              title="Total Users"
+              title="Total Students"
               value={<span className="h2">{stats.totalUsers}</span>}
             />
           </CCol>
