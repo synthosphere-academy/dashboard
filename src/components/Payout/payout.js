@@ -63,7 +63,29 @@ function Payout() {
   // ================= UNIQUE PAYOUT DATES =================
   //
   // const payoutDates = [...new Set(payouts.map((p) => p.date))]
-  const payoutDates = [...new Set(payouts.map((p) => p.date.split(',')[0].trim()))]
+  // const payoutDates = [...new Set(payouts.map((p) => p.date.split(',')[0].trim()))]
+const getDateTimestamp = (dateString) => {
+  const datePart = dateString.split(',')[0].trim();
+  const parts = datePart.split(/[/-]/);
+
+  let day, month, year;
+
+  if (parts[0].length === 4) {
+    [year, month, day] = parts;
+  } else {
+    [day, month, year] = parts;
+  }
+
+  return new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day)
+  ).getTime();
+};
+
+const payoutDates = [
+  ...new Set(payouts.map((p) => p.date.split(',')[0].trim())),
+].sort((a, b) => getDateTimestamp(b) - getDateTimestamp(a));
 
   // ================= FILTERED PAYOUTS =================
   const filteredPayouts = payouts.filter((p) => {
